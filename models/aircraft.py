@@ -1,34 +1,46 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
+from typing import Optional
 
 @dataclass
 class Aircraft:
-    hex_code: str
+    """
+    Represents a normalized aircraft within the FlightBoard system.
 
+    This model is independent of any API provider and serves as the canonical 
+    representation of an aircraft throughout the application.
+    """
+
+    # Identity
+    hex_code: str
     callsign: str
 
-    airline_code: str
-    airline_name: str
-
-    aircraft_type: str
-    aircraft_name: str
-
+    # Telemetry
     latitude: float
     longitude: float
-
     altitude_ft: int
-    speed_kts: int
-    heading: int
+    speed_kts: float
+    heading_deg: float
+    vertical_rate_fpm: int = 0
 
-    distance_miles: float
+    # Metadata
+    aircraft_type: str = "Unknown"
+    airline_code: str = "Unknown"
+    airline_name: str = "Unknown"
 
+    # Derived
+    distance_miles: float = 0.0
+    score: float = 0.0
+
+    # Classifications
     is_military: bool = False
     is_private: bool = False
     is_cargo: bool = False
 
-    origin: str | None = None
-    destination: str | None = None
+    # Display
+    logo_path: Optional[str] = None
 
-    logo_path: str | None = None
+    # Time
+    last_seen: datetime = field(default_factory=datetime.utcnow)
 
-    last_seen: datetime | None = None
+
