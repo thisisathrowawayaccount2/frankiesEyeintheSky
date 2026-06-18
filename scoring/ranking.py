@@ -1,4 +1,12 @@
-def score_aircraft(aircraft):
+from models.aircraft import Aircraft
+
+def score_aircraft(aircraft: Aircraft) -> float:
+    """
+    Calculates an interest score for a given aircraft.
+
+    The higher the score the more interesting the aircraft.
+    """
+    
     score = 100
 
     score -= aircraft.distance_miles * 10
