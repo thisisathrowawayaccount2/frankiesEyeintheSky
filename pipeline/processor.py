@@ -3,7 +3,7 @@ from scoring.ranking import score_aircraft
 from pipeline.types import PipelineStage
 
 from config import HOME_LATITUDE, HOME_LONGITUDE
-from utils.geo import haversine_distance
+from utils.geo import haversine_distance, calculate_bearing
 
 def calculate_distance(
         aircraft: Aircraft,
@@ -14,6 +14,23 @@ def calculate_distance(
     """
 
     aircraft.distance_miles = haversine_distance(
+        HOME_LATITUDE,
+        HOME_LONGITUDE,
+        aircraft.latitude,
+        aircraft.longitude,
+    )
+
+    return aircraft
+
+def determine_bearing(
+    aircraft: Aircraft,
+) -> Aircraft:
+    """
+    Determine the compass bearing from the
+    observer to the aircraft.
+    """
+
+    aircraft.bearing_deg = calculate_bearing(
         HOME_LATITUDE,
         HOME_LONGITUDE,
         aircraft.latitude,
@@ -41,7 +58,8 @@ def calculate_score(
 PIPELINE: tuple[PipelineStage, ...] = (
     normalize_callsign,
     calculate_distance,
-    calculate_score
+    determine_bearing,
+    calculate_score,
 ) 
 
 def process_aircraft(

@@ -31,6 +31,8 @@ class Aircraft:
     # Derived
     distance_miles: float = 0.0
     score: float = 0.0
+    bearing_deg: float = 0.0
+    heading_difference_deg: float = 0.0
 
     # Classifications
     is_military: bool = False

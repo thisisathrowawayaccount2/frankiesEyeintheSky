@@ -1,4 +1,4 @@
-from math import radians, sin, cos, sqrt, atan2
+from math import radians, sin, cos, sqrt, atan2, degrees
 
 EARTH_RADIUS_MILES = 3958.8
 FEET_PER_MILE = 5280
@@ -45,3 +45,39 @@ def feet_to_miles(
     """
 
     return  feet / FEET_PER_MILE
+
+def calculate_bearing(
+    lat1: float,
+    lon1: float,
+    lat2: float,
+    lon2: float,
+) -> float:
+    
+    """
+    Calculate the initial bearing from point A to point B.
+    
+    Returns a compass bearing in degrees.
+    """
+
+    lat1 = radians(lat1)
+    lat2 = radians(lat2)
+
+    delta_lon = radians(lon2 - lon1)
+
+    x = sin(delta_lon) * cos(lat2)
+
+    y = (
+        cos(lat1) * sin(lat2)
+        - sin(lat1)
+        * cos(lat2)
+        * cos(delta_lon)
+    )
+
+    bearing = degrees(
+        atan2(
+            x,
+            y
+        )
+    )
+
+    return (bearing +360) % 360
