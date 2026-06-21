@@ -1,6 +1,7 @@
 from math import radians, sin, cos, sqrt, atan2
 
 EARTH_RADIUS_MILES = 3958.8
+FEET_PER_MILE = 5280
 
 def haversine_distance(
     lat1: float,
@@ -35,3 +36,12 @@ def haversine_distance(
     )
 
     return EARTH_RADIUS_MILES * c
+
+def feet_to_miles(
+    feet: float,
+) -> float:
+    """
+    Converts a distance from feet to miles.
+    """
+
+    return  feet / FEET_PER_MILE
