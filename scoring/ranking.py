@@ -7,7 +7,7 @@ def score_aircraft(aircraft: Aircraft) -> float:
     The higher the score the more interesting the aircraft.
     """
     
-    score = 100
+    score = 100.0
 
     score -= aircraft.distance_miles * 10
 
