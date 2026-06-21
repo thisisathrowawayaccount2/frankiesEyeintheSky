@@ -81,3 +81,18 @@ def calculate_bearing(
     )
 
     return (bearing +360) % 360
+
+def angular_difference(
+        angle1: float,
+        angle2: float,
+) -> float:
+    """
+    Return the smallest difference between two headings.
+    """
+
+    difference = abs(angle1 - angle2)
+
+    if difference > 180:
+        difference = 360 - difference
+
+    return difference

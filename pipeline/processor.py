@@ -3,7 +3,7 @@ from scoring.ranking import score_aircraft
 from pipeline.types import PipelineStage
 
 from config import HOME_LATITUDE, HOME_LONGITUDE
-from utils.geo import haversine_distance, calculate_bearing
+from utils.geo import haversine_distance, calculate_bearing, angular_difference
 
 def calculate_distance(
         aircraft: Aircraft,
@@ -39,6 +39,21 @@ def determine_bearing(
 
     return aircraft
 
+def calculate_heading_difference(
+        aircraft: Aircraft,
+) -> Aircraft:
+    """
+    Compare aircraft heading with the bearing
+    from the observer.
+    """
+
+    aircraft.heading_difference_deg = angular_difference(
+        aircraft.heading_deg,
+        aircraft.bearing_deg,
+    )
+
+    return aircraft
+
 def normalize_callsign(
     aircraft: Aircraft,
 ) -> Aircraft:
@@ -59,6 +74,7 @@ PIPELINE: tuple[PipelineStage, ...] = (
     normalize_callsign,
     calculate_distance,
     determine_bearing,
+    calculate_heading_difference,
     calculate_score,
 ) 
 
