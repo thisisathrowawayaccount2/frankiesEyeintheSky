@@ -1,23 +1,37 @@
-from math import radians
-from math import sin
-from math import cos
-from math import sqrt
-from math import atan2 
+from math import radians, sin, cos, sqrt, atan2
 
-def haversine(lat1, lon1, lat2, lon2):
+EARTH_RADIUS_MILES = 3958.8
+
+def haversine_distance(
+    lat1: float,
+    lon1: float,
+    lat2: float,
+    lon2: float
+) -> float:
+    """
+    Calculates the great-circle distance
+    between two GPS coordinates.
+    """
     
-    earth_radius_miles = 3958.8
+    lat1 = radians(lat1)
+    lon1 = radians(lon1)
 
-    dlat = radians(lat2 - lat1)
-    dlon = radians(lon2 - lon1)
+    lat2 = radians(lat2)
+    lon2 = radians(lon2)
+
+    delta_lat = lat2 - lat1
+    delta_lon = lon2 - lon1
 
     a = (
-        sin(dlat /2) ** 2
-        + cos(radians(lat1))
-        * cos(radians(lat2))
-        * sin(dlon / 2) ** 2
+        sin(delta_lat / 2) ** 2
+        + cos(lat1)
+        * cos(lat2)
+        * sin(delta_lon / 2) ** 2
     )
 
-    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    c = 2 * atan2(
+        sqrt(a),
+        sqrt(1 - a),
+    )
 
-    return earth_radius_miles * c
+    return EARTH_RADIUS_MILES * c
