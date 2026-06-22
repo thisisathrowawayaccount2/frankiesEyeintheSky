@@ -1,14 +1,12 @@
-while True:
-    aircraft = collector.get_aircraft()
+import asyncio
 
-    ranked = sorted(
-        aircraft,
-        key=score_aircraft,
-        reverse=True
-    )
+async def heartbeat():
+    while True:
+        print("Heartbeat")
 
-    displays.console.show(
-        ranked[0]
-    )
+        await asyncio.sleep(1) 
 
-    sleep(10)
+async def main():
+    await heartbeat()
+
+asyncio.run(main())

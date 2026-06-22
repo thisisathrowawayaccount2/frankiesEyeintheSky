@@ -1,19 +1,31 @@
-def show(aircraft):
+from displays.base import BaseDisplay
+from models.aircraft import Aircraft
 
-    print()
-    print('=' * 40)
+class ConsoleDisplay(
+    BaseDisplay,
+): 
+    def render(
+        self,
+        aircraft: Aircraft,
+    ) -> None:
+        print()
 
-    print(f"{aircraft.airline_name}")
-    print(f"{aircraft.callsign}")
+        print("=" * 40)
 
-    print()
+        print(
+            aircraft.callsign
+        )
 
-    print(aircraft.aircraft_name)
+        print(
+            f"Distance: {aircraft.distance_miles:.1f} mi"
+        )
 
-    print()
+        print(
+            f"Altitude: {aircraft.altitude_ft:,.0f} ft"
+        )
 
-    print(f"{aircraft.altitude_ft:,} ft")
-    print(f"{aircraft.speed_kts} kts")
-    print(f"{aircraft.distance_miles:.1f} mi")
+        print(
+            f"Score: {aircraft.score:.2f}"
+        )
 
-    print("=" * 40)
+        print("=" * 40)
