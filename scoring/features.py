@@ -29,5 +29,3 @@ def altitude_feature(
     ) / MAX_ALTITUDE
 
     return score
-
-

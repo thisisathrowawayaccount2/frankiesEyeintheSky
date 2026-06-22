@@ -17,4 +17,3 @@ class BaseDisplay(ABC):
         """
 
         raise NotImplementedError
-    

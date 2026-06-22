@@ -14,7 +14,7 @@ CONFIG_PATH = (
     / "settings.yaml"
 )
 
-def load_settings() -> dict:
+def load_settings() -> Settings:
     """
     Load app settings from YAML.
     """

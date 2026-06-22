@@ -44,5 +44,3 @@ class Aircraft:
 
     # Time
     last_seen: datetime = field(default_factory=datetime.utcnow)
-
-
