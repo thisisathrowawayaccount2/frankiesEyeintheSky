@@ -1,25 +1,22 @@
 from models.aircraft import Aircraft
+from scoring.features import altitude_feature, distance_feature
 
-def score_aircraft(aircraft: Aircraft) -> float:
+def score_aircraft(
+        aircraft,
+) -> float:
     """
-    Calculates an interest score for a given aircraft.
-
-    The higher the score the more interesting the aircraft.
+    Compute the aircraft's overall relevance score.
     """
-    
-    score = 100.0
 
-    score -= aircraft.distance_miles * 10
+    distance = distance_feature(
+        aircraft.distance_miles,
+    )
 
-    score -= aircraft.altitude_ft / 1000
+    altitude = altitude_feature(
+        aircraft.altitude.ft,
+    )
 
-    if aircraft.is_military:
-        score += 100
-
-    if aircraft.is_private:
-        score += 50
-    
-    if aircraft.is_cargo:
-        score += 20
-
-    return score
+    return (
+        distance * 0.70
+        + altitude * 0.30
+    )
