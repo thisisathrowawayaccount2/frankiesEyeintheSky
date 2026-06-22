@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from models.aircraft import Aircraft
 from config import DISTANCE_WEIGHT, ALTITUDE_WEIGHT
+from rules.engine import apply_rules
 
 class ScoringStrategy(ABC):
     """
@@ -38,7 +39,13 @@ class DefaultScoringStrategy(
             aircraft.altitude_ft
         )
 
-        return (
+        base_score = (
             distance * DISTANCE_WEIGHT
             + altitude * ALTITUDE_WEIGHT
         )
+
+        bonus = apply_rules(
+            aircraft
+        )
+
+        return base_score + bonus
