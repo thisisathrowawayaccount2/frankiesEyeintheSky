@@ -1,12 +1,23 @@
-import asyncio
+from collectors.dummy import DummyCollector
+from displays.base import ConsoleDisplay
+from scoring.strategy import DefaultScoringStrategy
 
-async def heartbeat():
-    while True:
-        print("Heartbeat")
+def main():
+    settings = load_settings()
 
-        await asyncio.sleep(1) 
+    collector = DummyCollector()
 
-async def main():
-    await heartbeat()
+    display = ConsoleDisplay()
 
-asyncio.run(main())
+    strategy = DefaultScoringStrategy(settings)
+
+    pipeline = FlightPipeline(
+        collector=collector,
+        strategy=strategy,
+        display=display,
+    )
+
+    pipeline.run()
+
+if __name__ == "__main__":
+    main()
