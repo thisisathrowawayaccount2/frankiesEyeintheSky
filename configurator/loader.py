@@ -1,5 +1,12 @@
 from pathlib import Path
 import yaml
+from configurator.models import (
+    FavoriteSettings,
+    HomeSettings,
+    ScoringSettings,
+    Settings,
+    TrackingSettings,
+)
 
 CONFIG_PATH = (
     Path(__file__)
@@ -17,4 +24,19 @@ def load_settings() -> dict:
         "r",
         encoding="utf-8"
     ) as file:
-        return yaml.safe_load(file)
+        data = yaml.safe_load(file)
+    
+    return Settings(
+        home=HomeSettings(
+            **data["home"],
+        ),
+        tracking=TrackingSettings(
+            **data["tracking"],
+        ),
+        scoring=ScoringSettings(
+            **data["scoring"],
+        ),
+        favorites=FavoriteSettings(
+            **data["favorites"],
+        ),
+    )
