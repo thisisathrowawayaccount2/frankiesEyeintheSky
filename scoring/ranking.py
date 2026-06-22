@@ -1,22 +1,18 @@
 from models.aircraft import Aircraft
 from scoring.features import altitude_feature, distance_feature
+from config import ALTITUDE_WEIGHT, DISTANCE_WEIGHT
+from scoring.strategy import DefaultScoringStrategy
+
+_strategy = DefaultScoringStrategy()
 
 def score_aircraft(
         aircraft,
 ) -> float:
     """
-    Compute the aircraft's overall relevance score.
+    Delegate scoring to the configured 
+    scoring strategy.
     """
 
-    distance = distance_feature(
-        aircraft.distance_miles,
-    )
-
-    altitude = altitude_feature(
-        aircraft.altitude.ft,
-    )
-
-    return (
-        distance * 0.70
-        + altitude * 0.30
+    return _strategy.score(
+        aircraft
     )
