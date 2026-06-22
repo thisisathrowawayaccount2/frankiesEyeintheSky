@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-
 from models.aircraft import Aircraft
 
 class BaseCollector(ABC):
@@ -10,7 +9,7 @@ class BaseCollector(ABC):
     """
 
     @abstractmethod
-    def get_aircraft(self) -> list[Aircraft]:
+    def collect(self) -> list[Aircraft]:
         """
         Returns a list of normalized Aircraft objects.
         """
