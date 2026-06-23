@@ -1,9 +1,14 @@
 from models.aircraft import Aircraft
 from scoring.ranking import score_aircraft
 from pipeline.types import PipelineStage
-
+from configurator.loader import load_settings
 from config import HOME_LATITUDE, HOME_LONGITUDE
 from utils.geo import haversine_distance, calculate_bearing, angular_difference
+
+def filter_by_distance(aircraft: Aircraft) -> Aircraft | None:
+    if aircraft.distance_miles > max_distance:
+        return None
+    return aircraft
 
 def calculate_distance(
         aircraft: Aircraft,
@@ -81,9 +86,12 @@ PIPELINE: tuple[PipelineStage, ...] = (
 def process_aircraft(
     aircraft_list: list[Aircraft],
 ) -> list[Aircraft]:
+
+    enriched: list[Aircraft] = []
     
     for aircraft in aircraft_list:
         for stage in PIPELINE:
             aircraft = stage(aircraft)
+        enriched.append(aircraft)
     
-    return aircraft_list
+    return enriched
