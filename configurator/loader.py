@@ -19,7 +19,7 @@ def load_settings() -> Settings:
     Load app settings from YAML.
     """
 
-    with open(
+    with CONFIG_PATH.open(
         CONFIG_PATH,
         "r",
         encoding="utf-8"
@@ -32,6 +32,12 @@ def load_settings() -> Settings:
         ),
         tracking=TrackingSettings(
             **data["tracking"],
+        ),
+        collector=CollectorSettings(
+            **Data["collecotr"]
+        ),
+        display=DisplaySettings(
+            **data["display"]
         ),
         scoring=ScoringSettings(
             **data["scoring"],
