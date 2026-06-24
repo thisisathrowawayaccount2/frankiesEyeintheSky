@@ -1,12 +1,10 @@
 from models.aircraft import Aircraft
 from scoring.features import altitude_feature, distance_feature
-from config import ALTITUDE_WEIGHT, DISTANCE_WEIGHT
-from scoring.strategy import DefaultScoringStrategy
-
-_strategy = DefaultScoringStrategy()
+from scoring.strategy import ScoringStrategy
 
 def score_aircraft(
-        aircraft,
+        aircraft: Aircraft,
+        strategy: ScoringStrategy,
 ) -> float:
     """
     Delegate scoring to the configured 

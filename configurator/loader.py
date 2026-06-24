@@ -6,17 +6,16 @@ from configurator.models import (
     ScoringSettings,
     Settings,
     TrackingSettings,
+    DisplaySettings,
+    ScoringSettings,
+    CollectorSettings,
 )
 
-CONFIG_PATH = (
-    Path(__file__)
-    .parent
-    / "settings.yaml"
-)
+CONFIG_PATH = Path(__file__).parent / "settings.yaml"
 
 def load_settings() -> Settings:
     """
-    Load app settings from YAML.
+    Load and validate application settings from YAML.
     """
 
     with CONFIG_PATH.open(

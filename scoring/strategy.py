@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from models.aircraft import Aircraft
-from config import DISTANCE_WEIGHT, ALTITUDE_WEIGHT
 from rules.engine import apply_rules
+from scoring.features import distance_feature, altitude_feature
+from configurator.loader import Settings
 
 class ScoringStrategy(ABC):
     """
@@ -26,22 +27,25 @@ class DefaultScoringStrategy(
     Default scoring algorithm.
     """
 
+    def __init__(self, settings: Settings):
+        self.settings = settings
+
     def score(
         self,
         aircraft: Aircraft,
     ) -> float:
         
-        distance = distance.feature(
+        distance_score = distance_feature(
             aircraft.distance_miles
         )
 
-        altitude = altitude.feature(
+        altitude_score = altitude_feature(
             aircraft.altitude_ft
         )
 
         base_score = (
-            distance * DISTANCE_WEIGHT
-            + altitude * ALTITUDE_WEIGHT
+            distance_score * self.settings.scoring.distance_weight
+            + altitude_score * self.settings.scoring.altitude_weight
         )
 
         bonus = apply_rules(
