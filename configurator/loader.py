@@ -19,7 +19,6 @@ def load_settings() -> Settings:
     """
 
     with CONFIG_PATH.open(
-        CONFIG_PATH,
         "r",
         encoding="utf-8"
     ) as file:
@@ -33,7 +32,7 @@ def load_settings() -> Settings:
             **data["tracking"],
         ),
         collector=CollectorSettings(
-            **Data["collecotr"]
+            **data["collector"]
         ),
         display=DisplaySettings(
             **data["display"]

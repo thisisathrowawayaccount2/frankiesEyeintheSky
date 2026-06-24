@@ -9,6 +9,7 @@ class HomeSettings:
 class TrackingSettings:
     max_distance: float
     refresh_seconds: int
+    poll_interval: int
 
 @dataclass(frozen=True)
 class ScoringSettings:

@@ -7,6 +7,7 @@ from collectors.dummy import DummyCollector
 from displays.console import ConsoleDisplay
 from application.application import FlightApplication
 from pipeline.flight_pipeline import FlightPipeline
+from tracking.aircraft_tracker import AircraftTracker
 
 def main():
     
@@ -16,6 +17,7 @@ def main():
     #Build Depenedencies
     collector = DummyCollector()
     display = ConsoleDisplay()
+    tracker = AircraftTracker()
 
     #Build Pipeline (no global construction)
     pipeline = FlightPipeline(settings)
@@ -25,6 +27,8 @@ def main():
         collector=collector,
         pipeline=pipeline,
         display=display,
+        tracker=tracker,
+        settings=settings,
     )
 
     #Run the Application

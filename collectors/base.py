@@ -5,7 +5,7 @@ class BaseCollector(ABC):
     """
     Defines the interface for all aircraft collectors.
 
-    Every collector must implement get_aircraft().
+    Every collector must implement collect().
     """
 
     @abstractmethod
