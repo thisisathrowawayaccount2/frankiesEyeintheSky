@@ -9,7 +9,6 @@ class FlightApplication:
         pipeline,
         display,
     ):
-
         self.collector = collector
         self.pipeline = pipeline
         self.display = display
@@ -17,11 +16,11 @@ class FlightApplication:
     def run(self):
         aircraft = self.collector.collect()
 
-        ranked = self.pipeline.process(
+        processed = self.pipeline.process(
             aircraft
         )
 
-        for plane in ranked:
+        for plane in processed:
             self.display.render(
                 plane
             )
